@@ -3,7 +3,7 @@ sys.path.append("..")
 
 from fastapi import HTTPException, status, APIRouter, Depends
 from pydantic import BaseModel
-from typing import Optional, Annotated
+from typing import Optional
 import models
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session

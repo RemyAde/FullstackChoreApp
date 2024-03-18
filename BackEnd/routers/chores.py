@@ -2,12 +2,15 @@ import sys
 sys.path.append("..")
 
 from typing import Optional
-from fastapi import Depends, HTTPException, APIRouter
+from fastapi import Depends, HTTPException, APIRouter, Request
 import models
 from database import engine, SessionLocal
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
 from .auth import get_current_user, get_user_exception
+
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
 
 router = APIRouter(
@@ -17,6 +20,8 @@ router = APIRouter(
 )
 
 models.Base.metadata.create_all(bind=engine)
+
+templates = Jinja2Templates(directory="../FrontEnd/templates")
 
 
 def get_db():
@@ -33,6 +38,10 @@ class Chore(BaseModel):
     priority: int = Field(gt=0, lt=6, description="The priority must be between 1-5")
     complete: bool
 
+
+@router.get("/test")
+async def test(request: Request):
+    return templates.TemplateResponse("home.html", {"request": request})
 
 @router.get("/")
 async def read_all(db: Session = Depends(get_db)):
