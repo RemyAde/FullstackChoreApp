@@ -3,7 +3,7 @@ sys.path.append("..")
 
 from fastapi import HTTPException, status, APIRouter, Depends
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, Annotated
 import models
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
@@ -29,11 +29,16 @@ class CreateUser(BaseModel):
     password: str
 
 
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 models.Base.metadata.create_all(bind=engine)
 
-oauth2_bearer = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_bearer = OAuth2PasswordBearer(tokenUrl="auth/token")
 
 
 router = APIRouter(
@@ -104,14 +109,14 @@ async def create_new_user(create_user: CreateUser, db: Session = Depends(get_db)
     db.add(create_user_model)
     db.commit()
 
-@router.post("/token")
+@router.post("/token", response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = authenticate_user(form_data.username, form_data.password, db)
     if not user:
         raise token_expection()
     token_expires = timedelta(minutes=20)
     token = create_access_token(user.username, user.id, expires_deleta=token_expires)
-    return {"token": token}
+    return {"access_token": token, "token_type":"bearer"}
 
 
 # Exceptions
@@ -119,7 +124,7 @@ def get_user_exception():
     credentials_exception = HTTPException(
         status_code = status.HTTP_401_UNAUTHORIZED,
         detail = "Could not validate credentials",
-        headers = {"WWW-Authenticate": "Beare"},
+        headers = {"WWW-Authenticate": "Bearer"},
     )
     return credentials_exception
 
@@ -127,6 +132,6 @@ def token_expection():
     token_exception_response = HTTPException(
         status_code = status.HTTP_401_UNAUTHORIZED,
         detail = "Incorrect username or password",
-        headers = {"WWW-Authenticate": "Beare"},
+        headers = {"WWW-Authenticate": "Bearer"},
     )
     return token_exception_response
