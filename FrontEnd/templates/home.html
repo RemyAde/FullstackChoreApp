@@ -2,11 +2,28 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='chores/css/base.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='chores/css/bootstrap.css')}}">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Chorey</title>
 </head>
 <body>
-    <h1>Welcome to your one stop Chore app</h1>
+    <div>
+        <nav class="navbar navbar-expand-md navbar-dark main-color fixed-top">
+            <a class="navbar-brand" href="#">Chorey</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"> </span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+            </ul>
+        </div>
+        </nav>
+    </div>
+    <h1>Welcome to Chorey!</h1>
 </body>
 </html>
