@@ -41,7 +41,7 @@ class Chore(BaseModel):
 
 @router.get("/test")
 async def test(request: Request):
-    return templates.TemplateResponse("add-chore.html", {"request": request})
+    return templates.TemplateResponse("edit-chore.html", {"request": request})
 
 @router.get("/")
 async def read_all(db: Session = Depends(get_db)):
