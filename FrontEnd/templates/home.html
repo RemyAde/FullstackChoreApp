@@ -19,34 +19,32 @@
                     </thead>
                     
                     <tbody>
+                        {% for chore in chores %}
+                        {% if chore.complete == False %}
                         <tr class="pointer">
-                            <td>1</td>
-                            <td>Take out the thrash</td>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ chore.title }}</td>
                             <td>
-                                <button type="button" class="btn btn-success">Complete</button>
-                                <button type="button" class="btn btn-danger">Delete</button>
+                                <button onclick="window.location.href = 'complete/{{chore.id}}'" type="button" class="btn btn-success">Complete</button>
+                                <button type="button" class="btn btn-info" onclick="window.location.href='edit-chore/{{chore.id}}'">Edit</button>
                             </td>
                         </tr>
-                        <tr class="pointer">
-                            <td>2</td>
-                            <td>Take out the thrash</td>
+
+                        {% else %}
+                        <tr class="pointer alert alert-success">
+                            <td>{{ loop.index }}</td>
+                            <td class="strike-through-td">{{ chore.title }}</td>
                             <td>
-                                <button type="button" class="btn btn-success">Complete</button>
-                                <button type="button" class="btn btn-danger">Delete</button>
+                                <button onclick="window.location.href = 'complete/{{chore.id}}'" type="button" class="btn btn-success">Undo</button>
+                                <button type="button" class="btn btn-info" onclick="window.location.href='edit-chore/{{chore.id}}'">Edit</button>
                             </td>
                         </tr>
-                        <tr class="pointer">
-                            <td>3</td>
-                            <td>Take out the thrash</td>
-                            <td>
-                                <button type="button" class="btn btn-success">Complete</button>
-                                <button type="button" class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
+                        {% endif %}
+                        {% endfor %}
                     </tbody>
                 </table>
 
-                <a href="#" class="btn btn-primary">Add a new chore</a>
+                <a href="add-chore" class="btn btn-primary">Add a new chore</a>
             </div>
         </div>
     </div>

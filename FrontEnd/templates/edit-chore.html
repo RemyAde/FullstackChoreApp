@@ -6,27 +6,27 @@
                 Let's edit your chore!
             </div>
             <div class="card-body">
-                <form action="">
+                <form method="post">
                     <div class="form-group">
                         <label>Title</label>
-                        <input type="text" class="form-control" name="title" required>
+                        <input type="text" class="form-control" name="title" value="{{ chore.title }}" required>
                     </div>
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea name="description" class="form-control" rows="3" required></textarea>
+                        <textarea name="description" class="form-control" rows="3" required>{{chore.description}}</textarea>
                     </div>
                     <div class="form-group">
                         <label>Priority</label>
                         <select name="priority" class="form-control">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                            <option {% if chore.priority == 1 %} selected="selected" {% endif %}>1</option>
+                            <option {% if chore.priority == 2 %} selected="selected" {% endif %}>2</option>
+                            <option {% if chore.priority == 3 %} selected="selected" {% endif %}>3</option>
+                            <option {% if chore.priority == 4 %} selected="selected" {% endif %}>4</option>
+                            <option {% if chore.priority == 5 %} selected="selected" {% endif %}>5</option>
                         </select>
                     </div>
-                    <button type="button" class="btn btn-primary">Edit your chore</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                    <button onclick="window.location.href='/chores/delete/{{chore.id}}'" type="button" class="btn btn-danger">Delete</button>
                 </form>
             </div>
         </div>
