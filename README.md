@@ -30,7 +30,7 @@ Chorey is a full-stack API application built with FastAPI, allowing users to cre
 2. Install dependencies:
 
    ```bash
-   pip install -r requirements.txt
+   pip install -r BackEnd/requirements.txt
    ```
 
 3. Set up environment variables for database connection and JWT secret key.
