@@ -24,7 +24,7 @@ Chorey is a full-stack API application built with FastAPI, allowing users to cre
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/chorey.git
+   git clone https://github.com/RemyAde/FullstackChoreApp.git
    ```
 
 2. Install dependencies:
